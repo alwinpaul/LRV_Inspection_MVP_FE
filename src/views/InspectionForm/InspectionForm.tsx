@@ -6,6 +6,7 @@ import { RootState } from "../../store/store"
 import DDDForm from "../DDDForm/DDDForm"
 import PassengerCompartmentForm from "../PasengarCompartmentForm/PassengerCompartmentForm"
 import ExteriorForm from "../ExteriorForm/ExteriorForm"
+import NotesForm from "../NotesForm/NotesForm"
 
 const InspectionForm = () => {
 
@@ -25,6 +26,7 @@ const InspectionForm = () => {
                     <PassengerCompartmentForm />
                     <DDDForm />
                     <ExteriorForm />
+                    <NotesForm />
                 </div>
             )}
         </section>

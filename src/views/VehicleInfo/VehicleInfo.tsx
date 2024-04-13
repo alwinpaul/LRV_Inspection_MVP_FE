@@ -11,8 +11,8 @@ import { RootState } from "../../store/store";
 
 
 const schema = z.object({
-    vehicle_id: z.string(),
-    technician_id_1: z.string(),
+    vehicle_id: z.string({ required_error: "Vehicle Id is required" }).min(1, { message: "Invalid Vehicle Id" }),
+    technician_id_1: z.string({ required_error: "Technician Id is required" }).min(1, { message: "Technician id is required" }),
     technician_id_2: z.string().nullable(),
     work_order_number: z.string().nullable()
 });
