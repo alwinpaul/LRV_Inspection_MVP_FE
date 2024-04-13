@@ -13,8 +13,8 @@ import { RootState } from "../../store/store";
 const schema = z.object({
     vehicle_id: z.string(),
     technician_id_1: z.string(),
-    technician_id_2: z.string(),
-    work_order_number: z.string()
+    technician_id_2: z.string().nullable(),
+    work_order_number: z.string().nullable()
 });
 
 
