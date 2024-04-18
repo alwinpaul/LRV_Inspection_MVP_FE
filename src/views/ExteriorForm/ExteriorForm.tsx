@@ -1,6 +1,13 @@
 import { Checkbox, Table } from "antd";
+import { RootState } from "../../store/store";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { IExteriorFormItem } from "../../types/inspectionTypes";
+import { updateExteriorFormData, updateExteriorOptionalFormData } from "../../store/slice/InspectionSlice";
 
 const ExteriorForm = () => {
+
+    const dispatch = useAppDispatch()
+
     const columns = [
         {
             title: 'Vehicle Exterior Condition',
@@ -11,68 +18,46 @@ const ExteriorForm = () => {
             title: '',
             dataIndex: 'value',
             key: 'value',
-            render: () => (
-                <Checkbox />
+            render: (value: boolean, record: IExteriorFormItem) => (
+                <Checkbox checked={value} onChange={() => updateCabValue(record)} />
             )
         },
     ];
 
-    const data = [
+    const optionalFormColumns = [
         {
-            id: 1,
-            label: "Sanders",
-            value: false,
+            title: 'Others',
+            dataIndex: 'label',
+            key: 'label',
         },
         {
-            id: 2,
-            label: "Lights, Camera, and destination Sign",
-            value: false,
+            title: '',
+            dataIndex: 'value',
+            key: 'value',
+            render: (value: boolean, record: IExteriorFormItem) => (
+                <Checkbox checked={value} onChange={() => updateOptionalFormValue(record)} />
+            )
         },
-        {
-            id: 3,
-            label: "Windshields and Wipers blade",
-            value: false,
-        },
-        {
-            id: 4,
-            label: "Windows and Doors",
-            value: false,
-        },
-        {
-            id: 5,
-            label: "Bellows",
-            value: false,
-        },
-        {
-            id: 6,
-            label: "Panels and covers are closed and secured",
-            value: false,
-        },
-        {
-            id: 7,
-            label: "Decals and Paintwork",
-            value: false,
-        },
-        {
-            id: 8,
-            label: "Roof and water boxes, Pantograph (Weekly)",
-            value: false,
-        },
-        {
-            id: 9,
-            label: "EAD covers and buttons",
-            value: false,
-        },
-        {
-            id: 10,
-            label: "Undercar (Weekly)",
-            value: false,
-        }
-    ]
+    ];
+
+    const updateCabValue = (record: IExteriorFormItem) => {
+        dispatch(updateExteriorFormData({ record }))
+    }
+
+    const updateOptionalFormValue = (record: IExteriorFormItem) => {
+        dispatch(updateExteriorOptionalFormData({ record }))
+    }
+
+    const data = useAppSelector((root: RootState) => root.inspection.exteriorFormData)
+    const optionalFormData = useAppSelector((root: RootState) => root.inspection.exterioroptionalData)
 
     return (
         <section className="m-3">
             <Table dataSource={data} columns={columns} pagination={false} rowKey='id' />
+
+            <div className="my-3">
+                <Table dataSource={optionalFormData} columns={optionalFormColumns} pagination={false} rowKey='id' />
+            </div>
         </section>
     )
 }

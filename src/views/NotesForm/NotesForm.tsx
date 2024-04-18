@@ -1,5 +1,10 @@
-import { Button, Checkbox, Radio } from "antd"
+import { Alert, Button, Input, Radio, RadioChangeEvent, Space } from "antd"
 import TextArea from "antd/es/input/TextArea"
+import { debounce } from "../../utils/commons";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { ChangeEvent, useState } from "react";
+import { resetForms, updateFitForService, updateMileage, updateNotes } from "../../store/slice/InspectionSlice";
+import { RootState } from "../../store/store";
 
 
 const passFailOptions = [
@@ -7,43 +12,93 @@ const passFailOptions = [
     { label: 'Fail', value: false },
 ];
 
+
+
 const NotesForm = () => {
+
+    const dispatch = useAppDispatch();
+
+    const [showResetAlert, setShowResetAlert] = useState(false)
+
+    const mileage = useAppSelector((rootState: RootState) => rootState.inspection.mileage)
+    const notes = useAppSelector((rootState: RootState) => rootState.inspection.notes)
+    const fitForService = useAppSelector((rootState: RootState) => rootState.inspection.fitForService)
+
+    const handleMileageChange = (e: ChangeEvent<HTMLInputElement>) => {
+        debounce(() => dispatch(
+            updateMileage(parseInt(e.target.value))
+        ), 2000)
+    }
+
+    const handleNotesChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        debounce(() => dispatch(
+            updateNotes(e.target.value)
+        ), 2000)
+    }
+
+    const handleFitForServiceChange = (e: RadioChangeEvent) => {
+        updateFitForService(e.target.checked)
+    }
+
+    const handleResetForm = () => {
+        dispatch(resetForms())
+    }
+
     return (
         <section>
-            <div className="flex items-center justify-start flex-wrap">
-                <div className="w-6/12 text-left mt-4 p-2">
-                    <Checkbox>Maximum WO Completed</Checkbox>
+            <div className="pb-20">
+                <div className="flex items-centre m-3">
+                    <div className="w-1/2 text-md text-slate-600 text-left">Record Mileage</div>
+                    <div className="w-1/2">
+                        <Input value={mileage} type="number" onChange={handleMileageChange} />
+                    </div>
                 </div>
-                <div className="w-6/12 text-left mt-4 p-2">
-                    <Checkbox>Exterior wash/Sand/Washer fluid If required</Checkbox>
+
+
+
+                <div className="mt-8 text-left">
+                    <div>Notes:</div>
+                    <TextArea rows={4} onChange={handleNotesChange} value={notes} />
                 </div>
-                <div className="w-6/12 text-left mt-4 p-2">
-                    <Checkbox>Daily Clean completed</Checkbox>
-                </div>
-                <div className="w-6/12 text-left mt-4 p-2">
-                    <Checkbox>Weekly clean if required</Checkbox>
+
+                <div className="mt-8 text-left flex justify-between">
+                    <div>Fit for Revenue Service</div>
+                    <div className="w-2/12">
+                        <Radio.Group
+                            options={passFailOptions}
+                            optionType="button"
+                            buttonStyle="solid"
+                            value={fitForService}
+                            onChange={handleFitForServiceChange}
+                        />
+                    </div>
                 </div>
             </div>
 
-            <div className="mt-8 text-left">
-                <div>Notes:</div>
-                <TextArea rows={4} />
-            </div>
-
-            <div className="mt-8 text-left flex justify-between">
-                <div>Fit for Revenue Service</div>
-                <div className="w-2/12">
-                    <Radio.Group
-                        options={passFailOptions}
-                        optionType="button"
-                        buttonStyle="solid"
-                        defaultValue={true}
+            {showResetAlert && (
+                <div className="fixed bottom-20 bg-[#f7f7f7] w-4/12 right-10">
+                    <Alert
+                        message="All changes will be lost!"
+                        description="Are you sure you want to reset the form?"
+                        type="info"
+                        action={
+                            <Space direction="vertical">
+                                <Button type="primary" onClick={handleResetForm}>
+                                    Yes
+                                </Button>
+                                <Button danger ghost onClick={() => setShowResetAlert(false)}>
+                                    No
+                                </Button>
+                            </Space>
+                        }
                     />
                 </div>
-            </div>
 
-            <div className="my-12">
-                <Button type="primary" size="large" className="px-24">Submit</Button>
+            )}
+
+            <div className="fixed bottom-0 left-0 py-5 bg-[#f7f7f7] w-full z-10">
+                <Button type="default" size="large" className="px-20 mx-3" onClick={() => setShowResetAlert(true)}>Reset</Button>
+                <Button type="primary" size="large" className="px-20 mx-3">Review</Button>
             </div>
         </section>
     )

@@ -1,6 +1,13 @@
-import { Checkbox, Input, Table } from "antd";
+import { Checkbox, Table } from "antd";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { RootState } from "../../store/store";
+import { IDDDFormItem } from "../../types/inspectionTypes";
+import { updateDDDFormData } from "../../store/slice/InspectionSlice";
 
 const DDDForm = () => {
+
+    const dispatch = useAppDispatch();
+
     const columns = [
         {
             title: 'DDD',
@@ -9,59 +16,31 @@ const DDDForm = () => {
         },
         {
             title: 'Cab A',
-            dataIndex: 'cab_a',
-            key: 'cab_a',
-            render: () => (
-                <Checkbox />
+            dataIndex: 'cab_a_value',
+            key: 'cab_a_value',
+            render: (value: boolean, record: IDDDFormItem) => (
+                <Checkbox checked={value} onChange={() => updateCabValue(record, 'cab_a_value')} />
             )
         },
         {
             title: 'Cab B',
-            dataIndex: 'cab_b',
-            key: 'cab_b',
-            render: () => (
-                <Checkbox />
+            dataIndex: 'cab_b_value',
+            key: 'cab_b_value',
+            render: (value: boolean, record: IDDDFormItem) => (
+                <Checkbox checked={value} onChange={() => updateCabValue(record, 'cab_b_value')} />
             )
         },
     ];
 
-    const data = [
-        {
-            id: 1,
-            label: "Date, Time and speed limit (80km/hr.)",
-            cab_a: false,
-            cab_b: false
-        },
-        {
-            id: 2,
-            label: "SVSCS Cameras",
-            cab_a: false,
-            cab_b: false
-        },
-        {
-            id: 3,
-            label: "Battery Voltage",
-            cab_a: false,
-            cab_b: false
-        },
-        {
-            id: 4,
-            label: "Perform Departure Tests (Primary and secondary vigilance, Maximum speed test and roll back test)",
-            cab_a: false,
-            cab_b: false
-        },
+    const updateCabValue = (record: IDDDFormItem, cab: 'cab_a_value' | 'cab_b_value') => {
+        dispatch(updateDDDFormData({ record, cab }))
+    }
 
-    ]
+    const data = useAppSelector((root: RootState) => root.inspection.dddFormData)
 
     return (
         <section className="m-3">
             <Table dataSource={data} columns={columns} pagination={false} rowKey='id' />
-            <div className="flex items-centre m-3">
-                <div className="w-1/2 text-md text-slate-600 text-left">Record Mileage</div>
-                <div className="w-1/2">
-                    <Input />
-                </div>
-            </div>
         </section>
     )
 }

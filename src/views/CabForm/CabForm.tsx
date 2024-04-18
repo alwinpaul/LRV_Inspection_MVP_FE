@@ -1,6 +1,12 @@
 import { Checkbox, Table } from "antd";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { RootState } from "../../store/store";
+import { ICabFormItem } from "../../types/inspectionTypes";
+import { updateCabFormData } from "../../store/slice/InspectionSlice";
 
 const CabForm = () => {
+
+    const dispatch = useAppDispatch()
     const columns = [
         {
             title: 'Cab Condition and Function',
@@ -9,108 +15,29 @@ const CabForm = () => {
         },
         {
             title: 'Cab A',
-            dataIndex: 'cab_a',
-            key: 'cab_a',
-            render: () => (
-                <Checkbox />
+            dataIndex: 'cab_a_value',
+            key: 'cab_a_value',
+            render: (value: boolean, record: ICabFormItem) => (
+                <Checkbox checked={value} onChange={() => updateCabValue(record, 'cab_a_value')} />
             )
         },
         {
             title: 'Cab B',
-            dataIndex: 'cab_b',
-            key: 'cab_b',
-            render: () => (
-                <Checkbox />
+            dataIndex: 'cab_b_value',
+            key: 'cab_b_value',
+            render: (value: boolean, record: ICabFormItem) => (
+                <Checkbox checked={value} onChange={() => updateCabValue(record, 'cab_b_value')} />
             )
         },
     ];
 
-    const data = [
-        {
-            id: 1,
-            label: "Operator's Seat, Belt, Footrest",
-            cab_a: false,
-            cab_b: false
-        },
-        {
-            id: 2,
-            label: "Interior Mirrors, Sun Visors and Blinds",
-            cab_a: false,
-            cab_b: false
-        },
-        {
-            id: 3,
-            label: "Broom, Switch bar()one Cab, Fire extinguisher, Emergency Hammer",
-            cab_a: false,
-            cab_b: false
-        },
-        {
-            id: 4,
-            label: "Ceiling panels and perch seat are secured",
-            cab_a: false,
-            cab_b: false
-        },
-        {
-            id: 5,
-            label: "Left console switches are normal and sealed, wall panels secured",
-            cab_a: false,
-            cab_b: false
-        },
-        {
-            id: 6,
-            label: "WIFI Router is ON and GFCI not tripped",
-            cab_a: false,
-            cab_b: false
-        },
-        {
-            id: 7,
-            label: "Lamp Test and 4-way Flashers",
-            cab_a: false,
-            cab_b: false
-        },
-        {
-            id: 8,
-            label: "Gong, bell, and horn",
-            cab_a: false,
-            cab_b: false
-        },
-        {
-            id: 9,
-            label: "Washers/Wipers and Distress push button",
-            cab_a: false,
-            cab_b: false
-        },
-        {
-            id: 10,
-            label: "Sanders, PA (Int/Ext)",
-            cab_a: false,
-            cab_b: false
-        },
-        {
-            id: 11,
-            label: "Enable LHS/RHS door, Stop request",
-            cab_a: false,
-            cab_b: false
-        },
-        {
-            id: 12,
-            label: "Cab Lights and Instructor switch",
-            cab_a: false,
-            cab_b: false
-        },
-        {
-            id: 13,
-            label: "Radio and ADU test",
-            cab_a: false,
-            cab_b: false
-        },
-        {
-            id: 14,
-            label: "Door open Pink Decal Present",
-            cab_a: false,
-            cab_b: false
-        }
-    ]
+    const updateCabValue = (record: ICabFormItem, cab: 'cab_a_value' | 'cab_b_value') => {
+        dispatch(updateCabFormData({ record, cab }))
+    }
+
+
+
+    const data = useAppSelector((root: RootState) => root.inspection.cabFormData)
 
     return (
         <section className="m-3">
