@@ -25,15 +25,15 @@ const NotesForm = () => {
     const fitForService = useAppSelector((rootState: RootState) => rootState.inspection.fitForService)
 
     const handleMileageChange = (e: ChangeEvent<HTMLInputElement>) => {
-        debounce(() => dispatch(
+        dispatch(
             updateMileage(parseInt(e.target.value))
-        ), 2000)
+        )
     }
 
     const handleNotesChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        debounce(() => dispatch(
+        dispatch(
             updateNotes(e.target.value)
-        ), 2000)
+        )
     }
 
     const handleFitForServiceChange = (e: RadioChangeEvent) => {
