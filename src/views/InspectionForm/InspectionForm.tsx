@@ -16,11 +16,11 @@ const InspectionForm = () => {
 
     return (
         <section>
-            <h2 className="text-centre text-xl text-slate-600 font-bold">LRV Daily Inspection / Maintenance</h2>
+            <h2 className="text-left sm:text-centre text-xl text-slate-600 font-bold my-5">LRV Daily Inspection / Maintenance</h2>
             {currentPage === 1 ? (
                 <VehicleInfo />
             ) : (
-                <div className="w-8/12 m-auto pt-8">
+                <div className="sm:w-8/12 m-auto pt-8">
                     <VehicleInfoView />
                     <CabForm />
                     <PassengerCompartmentForm />

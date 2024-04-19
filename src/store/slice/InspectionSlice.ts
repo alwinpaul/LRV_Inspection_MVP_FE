@@ -325,6 +325,19 @@ export const InspectionSlice = createSlice({
         },
         resetForms: () => {
             return initialState
+        },
+        selectAllFormData: (state, action: PayloadAction<{ value: boolean, formName: "cab" | "ddd" | "exterior" | "psg" | "opex", cab: "A" | "B" | null }>) => {
+            if (action.payload.formName === 'cab') {
+                state.cabFormData.map(item => item[action.payload.cab === "A" ? 'cab_a_value' : 'cab_b_value'] = action.payload.value)
+            } else if (action.payload.formName === 'ddd') {
+                state.dddFormData.map(item => item[action.payload.cab === "A" ? 'cab_a_value' : 'cab_b_value'] = action.payload.value)
+            } else if (action.payload.formName === 'exterior') {
+                state.exteriorFormData.map(item => item.value = action.payload.value)
+            } else if (action.payload.formName === 'psg') {
+                state.psgCompartmentData.map(item => item.value = action.payload.value)
+            } else if (action.payload.formName === 'opex') {
+                state.exterioroptionalData.map(item => item.value = action.payload.value)
+            }
         }
     },
 })
@@ -339,7 +352,8 @@ export const {
     updateMileage,
     updateNotes,
     updateFitForService,
-    resetForms
+    resetForms,
+    selectAllFormData
 } = InspectionSlice.actions
 
 export default InspectionSlice.reducer

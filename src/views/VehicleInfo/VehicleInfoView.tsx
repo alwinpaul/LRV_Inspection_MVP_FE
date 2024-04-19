@@ -30,10 +30,19 @@ const VehicleInfoView = () => {
     const vehicleInfoData = { ...useAppSelector((root: RootState) => root.inspection.vehilceInfo), id: 1 }
 
     return (
-        <section className="m-3">
-            <Table dataSource={[vehicleInfoData]} columns={columns} pagination={false} rowKey='id' />
-        </section>
-
+        <>
+            <section className="m-3 hidden sm:block">
+                <Table dataSource={[vehicleInfoData]} columns={columns} pagination={false} rowKey='id' />
+            </section>
+            <section className="sm:hidden">
+                {columns.map(col => (
+                    <div className="flex items-centre justify-start w-full p-2" key={col.dataIndex}>
+                        <div className="text-sm font-bold w-6/12 text-left">{col.title}</div>:
+                        <div className="text-sm ml-5"> {vehicleInfoData[col.key as keyof typeof vehicleInfoData] || '-'}</div>
+                    </div>
+                ))}
+            </section>
+        </>
     )
 }
 

@@ -43,42 +43,41 @@ const VehicleInfo = () => {
     }, [errors])
 
     return (
-        <section className="m-20 w-11/12">
+        <section className="sm:m-20 w-11/12">
             <>
                 <Form
                     style={{ maxWidth: 600 }}
                     onFinish={handleSubmit((data) => {
-                        console.log(data)
                         saveData(data)
                     })}
                 >
-                    <div className="flex items-centre">
-                        <div className="w-1/2 text-md text-slate-600 text-left">Vehicle Id</div>
-                        <div className="w-1/2">
+                    <div className="sm:flex sm:items-centre ">
+                        <div className="w-full sm:w-1/2 text-md text-slate-600 text-left">Vehicle Id</div>
+                        <div className="w-full sm:w-1/2">
                             <FormItem control={control} name="vehicle_id">
                                 <Input />
                             </FormItem>
                         </div>
                     </div>
-                    <div className="flex items-centre">
-                        <div className="w-1/2 text-md text-slate-600 text-left">Technician Id 1</div>
-                        <div className="w-1/2">
+                    <div className="sm:flex sm:items-centre ">
+                        <div className="w-full sm:w-1/2 text-md text-slate-600 text-left">Technician Id 1</div>
+                        <div className="w-full sm:w-1/2">
                             <FormItem control={control} name="technician_id_1">
                                 <Input />
                             </FormItem>
                         </div>
                     </div>
-                    <div className="flex items-centre">
-                        <div className="w-1/2 text-md text-slate-600 text-left">Technician Id 2</div>
-                        <div className="w-1/2">
+                    <div className="sm:flex sm:items-centre ">
+                        <div className="w-full sm:w-1/2 text-md text-slate-600 text-left">Technician Id 2</div>
+                        <div className="w-full sm:w-1/2">
                             <FormItem control={control} name="technician_id_2">
                                 <Input />
                             </FormItem>
                         </div>
                     </div>
-                    <div className="flex items-centre">
-                        <div className="w-1/2 text-md text-slate-600 text-left">Work Order Number</div>
-                        <div className="w-1/2">
+                    <div className="sm:flex sm:items-centre ">
+                        <div className="w-full sm:w-1/2 text-md text-slate-600 text-left">Work Order Number</div>
+                        <div className="w-full sm:w-1/2">
                             <FormItem control={control} name="work_order_number">
                                 <Input />
                             </FormItem>

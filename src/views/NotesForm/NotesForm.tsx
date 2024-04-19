@@ -57,13 +57,13 @@ const NotesForm = () => {
 
 
                 <div className="mt-8 text-left">
-                    <div>Notes:</div>
+                    <div className="text-md font-bold">Notes :</div>
                     <TextArea rows={4} onChange={handleNotesChange} value={notes} />
                 </div>
 
                 <div className="mt-8 text-left flex justify-between">
-                    <div>Fit for Revenue Service</div>
-                    <div className="w-2/12">
+                    <div className="font-bold text-md">Fit for Revenue Service : </div>
+                    <div className="sm:w-2/12">
                         <Radio.Group
                             options={passFailOptions}
                             optionType="button"
@@ -76,7 +76,7 @@ const NotesForm = () => {
             </div>
 
             {showResetAlert && (
-                <div className="fixed bottom-20 bg-[#f7f7f7] w-4/12 right-10">
+                <div className="fixed bottom-20 bg-[#f7f7f7] w-11/12 z-10 sm:w-4/12 sm:right-10">
                     <Alert
                         message="All changes will be lost!"
                         description="Are you sure you want to reset the form?"
@@ -97,8 +97,8 @@ const NotesForm = () => {
             )}
 
             <div className="fixed bottom-0 left-0 py-5 bg-[#f7f7f7] w-full z-10">
-                <Button type="default" size="large" className="px-20 mx-3" onClick={() => setShowResetAlert(true)}>Reset</Button>
-                <Button type="primary" size="large" className="px-20 mx-3">Review</Button>
+                <Button type="default" size="large" className="px-3 sm:px-20 mx-3" onClick={() => setShowResetAlert(true)}>Reset</Button>
+                <Button type="primary" size="large" className="px-3 sm:px-20 mx-3">Review</Button>
             </div>
         </section>
     )
