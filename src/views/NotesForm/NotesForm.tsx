@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { ChangeEvent, useState } from "react";
 import { resetForms, updateFitForService, updateMileage, updateNotes } from "../../store/slice/InspectionSlice";
 import { RootState } from "../../store/store";
+import { useNavigate } from "react-router-dom";
 
 
 const passFailOptions = [
@@ -16,6 +17,7 @@ const passFailOptions = [
 const NotesForm = () => {
 
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const [showResetAlert, setShowResetAlert] = useState(false)
 
@@ -41,6 +43,10 @@ const NotesForm = () => {
 
     const handleResetForm = () => {
         dispatch(resetForms())
+    }
+
+    const gotoReview = () => {
+        navigate("/review")
     }
 
     return (
@@ -97,7 +103,7 @@ const NotesForm = () => {
 
             <div className="fixed bottom-0 left-0 py-5 bg-[#f7f7f7] w-full z-10">
                 <Button type="default" size="large" className="px-3 sm:px-20 mx-3" onClick={() => setShowResetAlert(true)}>Reset</Button>
-                <Button type="primary" size="large" className="px-3 sm:px-20 mx-3">Review</Button>
+                <Button type="primary" size="large" className="px-3 sm:px-20 mx-3" onClick={gotoReview}>Review</Button>
             </div>
         </section>
     )
