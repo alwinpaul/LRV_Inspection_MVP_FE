@@ -21,37 +21,25 @@ export default function Login() {
 
     return (
 
-        <section className="w-full h-[100vh] flex justify-center">
-            <div className='w-6/12 flex items-center relative'>
-                <img src="/img/mobile-login.jpg" alt="login" className='m-20 w-8/12' />
-                <div className='absolute bottom-0 right-0 text-xs m-5 '>
-                    <a href="https://www.freepik.com/free-vector/mobile-login-concept-illustration_4957412.htm#query=login&position=4&from_view=keyword&track=sph&uuid=401bb2d7-68f7-4fc5-aca9-b9d7261b50ea">Image by storyset</a> on Freepik
-                </div>
-            </div>
-            <div className='w-6/12 flex items-center bg-blue-100'>
-                <div>
-                    <div className='w-full flex items-center justify-center'>
-                        <img src="/img/logo.svg" alt="logo" className='my-2 w-4/12' />
+        <section className="w-full mt-20 flex justify-center">
+            <div className='w-full sm:w-4/12 sm:p-5 flex items-center bg-blue-100 border-2 border-blue-300 rounded-lg shadow-md'>
+                <form className="sic-box p-3 w-full" onSubmit={handleLogin}>
+                    <div className="sic-field sm:flex items-center justify-start my-5">
+                        <div className="label sm:w-1/3 text-left">Email : </div>
+                        <div className="inputf w-full sm:w-2/3">
+                            <input type="text" name="username" id="username" onChange={handleUsernameChange} className='border border-gray-900/50 rounded-md w-full h-10 p-2' />
+                        </div>
                     </div>
-                    <form className="sic-box px-10 py-20 w-full" onSubmit={handleLogin}>
-                        <div className="sic-field flex items-center justify-start my-5">
-                            <div className="label w-1/3">Email : </div>
-                            <div className="inputf w-2/3">
-                                <input type="text" name="username" id="username" onChange={handleUsernameChange} className='border border-gray-900/50 rounded-md w-full h-10 p-2' />
-                            </div>
+                    <div className="sic-field sm:flex items-center justify-start my-5">
+                        <div className="label sm:w-1/3 text-left">Password : </div>
+                        <div className="inputf w-full sm:w-2/3">
+                            <input type="password" name="password" id="password" onChange={handlePasswordChange} className='border border-gray-900/50 rounded-md w-full h-10 p-2' />
                         </div>
-                        <div className="sic-field flex items-center justify-start my-5">
-                            <div className="label w-1/3">Password : </div>
-                            <div className="inputf w-2/3">
-                                <input type="password" name="password" id="password" onChange={handlePasswordChange} className='border border-gray-900/50 rounded-md w-full h-10 p-2' />
-                            </div>
-                        </div>
-                        <div className="btn flex items-center justify-center">
-                            <Button type="primary" size='large' htmlType="submit">Login</Button>
-                        </div>
-                    </form>
-                </div>
-
+                    </div>
+                    <div className="btn flex items-center justify-center">
+                        <Button type="primary" size='large' htmlType="submit">Login</Button>
+                    </div>
+                </form>
             </div>
         </section>
 
