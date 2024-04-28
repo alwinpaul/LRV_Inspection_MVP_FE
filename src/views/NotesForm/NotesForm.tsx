@@ -38,7 +38,9 @@ const NotesForm = () => {
     }
 
     const handleFitForServiceChange = (e: RadioChangeEvent) => {
-        updateFitForService(e.target.checked)
+        dispatch(
+            updateFitForService(e.target.value)
+        )
     }
 
     const handleResetForm = () => {
