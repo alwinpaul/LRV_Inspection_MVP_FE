@@ -5,3 +5,5 @@ This is the mvp product for automation of LRV train maintenance for Waterloo reg
 The project is bootstraped using Vite.
 
 Built using Typescript + React + Redux toolkit + Ant Design and Tailwind.
+
+[View Demo](https://lrv-inspection.vercel.app/)
