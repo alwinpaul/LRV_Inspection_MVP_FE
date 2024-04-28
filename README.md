@@ -1,6 +1,6 @@
-# LRV Maintenance and Inspection Dashboard
+# LRV Daily Maintenance and Inspection
 
-This a MVP for LRV Maintenance sheet automation.
+This is the mvp product for automation of LRV train maintenance for Waterloo region.
 
 The project is bootstraped using Vite.
 
