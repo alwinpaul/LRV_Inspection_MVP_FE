@@ -1,16 +1,25 @@
-import { Provider } from 'react-redux'
+
 import './App.css'
 import Header from './views/Header/Header'
-import { store } from './store/store'
+
 import Routes from './routes/routes'
+import { useEffect } from 'react'
+import { useAppDispatch } from './hooks/hooks'
+import { verifyAuth } from './thunks/login.thunk'
 
 function App() {
 
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(verifyAuth())
+  }, [])
+
   return (
-    <Provider store={store}>
+    <>
       <Header />
       <Routes />
-    </Provider>
+    </>
   )
 }
 

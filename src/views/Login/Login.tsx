@@ -1,7 +1,13 @@
-import { Button } from 'antd';
-import { ChangeEvent, useState } from 'react'
+import { Button, Modal } from 'antd';
+import { ChangeEvent, SyntheticEvent, useState } from 'react'
+import { useAppDispatch } from '../../hooks/hooks';
+import { userSignIn } from '../../thunks/login.thunk';
+import { useNavigate } from 'react-router';
 
 export default function Login() {
+
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     const [pass, setPass] = useState("");
     const [username, setUserName] = useState("");
@@ -15,8 +21,24 @@ export default function Login() {
         setPass(evt.target.value)
     }
 
-    const handleLogin = () => {
-        console.log(pass, username)
+    const handleLogin = async (e: SyntheticEvent) => {
+        e.preventDefault();
+        const resultAction = await dispatch(userSignIn({
+            email: username,
+            password: pass
+        }))
+        if (userSignIn.fulfilled.match(resultAction)) {
+            // ON SUCCESS REDIRECTION
+            if (resultAction.payload) {
+                navigate("/dmi/inspect")
+            }
+        } else if (userSignIn.rejected.match(resultAction)) {
+            Modal.error({
+                title: "Authentication Failed!",
+                content: "The Username / Password didn't match our records."
+            })
+        }
+
     }
 
     return (

@@ -2,21 +2,29 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import InspectionForm from "../views/InspectionForm/InspectionForm";
 import Login from "../views/Login/Login";
 import Review from "../views/Review/Review";
+import ProtectedRoute from "../components/Auth/ProtectedRoute";
 
 
 const router = createBrowserRouter([
     {
-        path: "/",
-        element: <InspectionForm />,
+        path: "/dmi",
+        element: <ProtectedRoute />,
+        children: [
+            {
+                path: "inspect",
+                element: <InspectionForm />,
+            },
+            {
+                path: "review",
+                element: <Review />,
+            },
+        ]
     },
     {
         path: "/login",
         element: <Login />,
     },
-    {
-        path: "/review",
-        element: <Review />,
-    },
+
 ])
 
 function Routes() {

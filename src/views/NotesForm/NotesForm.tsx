@@ -48,7 +48,7 @@ const NotesForm = () => {
     }
 
     const gotoReview = () => {
-        navigate("/review")
+        navigate("/dmi/review")
     }
 
     return (
