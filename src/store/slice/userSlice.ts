@@ -35,6 +35,9 @@ export const UserSlice = createSlice({
         builder.addCase(userSignIn.pending, (state) => {
             state.isAuthLoading = true
         });
+        builder.addCase(userSignIn.rejected, (state) => {
+            state.isAuthLoading = false
+        });
         builder.addCase(verifyAuth.fulfilled, (state, { payload }) => {
             state.userDetails = { ...payload }
             state.isAuthLoading = false
@@ -42,6 +45,9 @@ export const UserSlice = createSlice({
         })
         builder.addCase(verifyAuth.pending, (state) => {
             state.isAuthLoading = true
+        });
+        builder.addCase(verifyAuth.rejected, (state) => {
+            state.isAuthLoading = false
         });
 
     }

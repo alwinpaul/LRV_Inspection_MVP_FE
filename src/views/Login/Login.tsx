@@ -30,7 +30,7 @@ export default function Login() {
         if (userSignIn.fulfilled.match(resultAction)) {
             // ON SUCCESS REDIRECTION
             if (resultAction.payload) {
-                navigate("/dmi/inspect")
+                navigate("/dmi")
             }
         } else if (userSignIn.rejected.match(resultAction)) {
             Modal.error({

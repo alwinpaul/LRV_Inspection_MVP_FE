@@ -30,3 +30,17 @@ export interface IPsgCompartmentFormItem {
     label: string,
     value: boolean,
 }
+
+export interface IDmiListing {
+    vehicleInfo: IVehicleInfo
+    cabData: Array<ICabFormItem>
+    exteriorData: Array<IExteriorFormItem>
+    exteriorOptionalData: Array<IExteriorFormItem>
+    psgData: Array<IPsgCompartmentFormItem>
+    dddData: Array<IDDDFormItem>
+    mileage: number
+    notes: string
+    fitForService: boolean
+    dateTime: string
+    _id: string
+}

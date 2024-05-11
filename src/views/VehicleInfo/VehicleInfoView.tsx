@@ -27,7 +27,7 @@ const columns = [
 
 const VehicleInfoView = () => {
 
-    const vehicleInfoData = { ...useAppSelector((root: RootState) => root.inspection.vehilceInfo), id: 1 }
+    const vehicleInfoData = { ...useAppSelector((root: RootState) => root.inspection.vehicleInfo), id: 1 }
 
     return (
         <>

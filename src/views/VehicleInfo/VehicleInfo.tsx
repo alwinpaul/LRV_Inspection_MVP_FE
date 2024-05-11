@@ -22,7 +22,7 @@ const VehicleInfo = () => {
 
     const dispatch = useAppDispatch()
 
-    const vehicleData = useAppSelector((root: RootState) => root.inspection.vehilceInfo)
+    const vehicleData = useAppSelector((root: RootState) => root.inspection.vehicleInfo)
 
     const saveData = (data: IVehicleInfo) => {
         dispatch(updateVehilceData(data))

@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { ICabFormItem, IDDDFormItem, IExteriorFormItem, IPsgCompartmentFormItem, IVehicleInfo } from '../../types/inspectionTypes'
+import { ICabFormItem, IDDDFormItem, IDmiListing, IExteriorFormItem, IPsgCompartmentFormItem, IVehicleInfo } from '../../types/inspectionTypes'
+import { getDmiListing } from '../../thunks/dmiListing.thunk'
 
 interface InspectionState {
-    vehilceInfo: IVehicleInfo,
+    vehicleInfo: IVehicleInfo,
     currentPage: 1 | 2 | 3,
     cabFormData: Array<ICabFormItem>,
     dddFormData: Array<IDDDFormItem>,
@@ -12,16 +13,20 @@ interface InspectionState {
     exterioroptionalData: Array<IExteriorFormItem>,
     mileage: number,
     notes: string,
-    fitForService: boolean
+    fitForService: boolean,
+    dmiListing: Array<IDmiListing> | null,
+    isDmiLoading: boolean
 }
 
 const initialState: InspectionState = {
-    vehilceInfo: {
+    vehicleInfo: {
         vehicle_id: null,
         technician_id_1: null,
         technician_id_2: null,
         work_order_number: null
     },
+    dmiListing: null,
+    isDmiLoading: false,
     cabFormData: [
         {
             id: 1,
@@ -37,7 +42,7 @@ const initialState: InspectionState = {
         },
         {
             id: 3,
-            label: "Broom, Switch bar()one Cab, Fire extinguisher, Emergency Hammer",
+            label: "Broom, Switch barone Cab, Fire extinguisher, Emergency Hammer",
             cab_a_value: false,
             cab_b_value: false
         },
@@ -286,7 +291,7 @@ export const InspectionSlice = createSlice({
     initialState,
     reducers: {
         updateVehilceData: (state, action: PayloadAction<IVehicleInfo>) => {
-            state.vehilceInfo = { ...action.payload }
+            state.vehicleInfo = { ...action.payload }
             state.currentPage = 2
         },
         updateCabFormData: (state, action: PayloadAction<{ record: ICabFormItem, cab: 'cab_a_value' | 'cab_b_value' }>) => {
@@ -338,8 +343,20 @@ export const InspectionSlice = createSlice({
             } else if (action.payload.formName === 'opex') {
                 state.exterioroptionalData.map(item => item.value = action.payload.value)
             }
-        }
+        },
     },
+    extraReducers: (builder) => {
+        builder.addCase(getDmiListing.pending, (state) => {
+            state.isDmiLoading = true
+        });
+        builder.addCase(getDmiListing.fulfilled, (state, { payload }) => {
+            state.dmiListing = payload
+            state.isDmiLoading = false
+        });
+        builder.addCase(getDmiListing.rejected, (state) => {
+            state.isDmiLoading = false
+        });
+    }
 })
 
 export const {

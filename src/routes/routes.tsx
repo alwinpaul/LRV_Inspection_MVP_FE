@@ -3,6 +3,7 @@ import InspectionForm from "../views/InspectionForm/InspectionForm";
 import Login from "../views/Login/Login";
 import Review from "../views/Review/Review";
 import ProtectedRoute from "../components/Auth/ProtectedRoute";
+import DmiListing from "../views/DmiListing/DmiListing";
 
 
 const router = createBrowserRouter([
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
             {
                 path: "review",
                 element: <Review />,
+            },
+            {
+                path: "",
+                element: <DmiListing />,
             },
         ]
     },

@@ -1,26 +1,27 @@
-import { Button, Table } from "antd";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { RootState } from "../../store/store";
+import { Table, Modal } from "antd";
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons'
-import { useNavigate } from "react-router";
-import VehicleInfoView from "../VehicleInfo/VehicleInfoView";
-import { submitForm } from "../../thunks/submitForm.thunk";
+import { IDmiListing } from "../../types/inspectionTypes";
 
 
-const Review = () => {
+interface IDmiDetailProps {
+    dmiData: IDmiListing,
+    isOpen: boolean,
+    handleClose: () => void
+}
 
-    const navigate = useNavigate();
-    const dispatch = useAppDispatch()
 
-    const cabData = useAppSelector((root: RootState) => root.inspection.cabFormData)
-    const exteriorData = useAppSelector((root: RootState) => root.inspection.exteriorFormData)
-    const exteriorOptionalData = useAppSelector((root: RootState) => root.inspection.exterioroptionalData)
-    const psgData = useAppSelector((root: RootState) => root.inspection.psgCompartmentData)
-    const dddData = useAppSelector((root: RootState) => root.inspection.dddFormData)
-    const mileage = useAppSelector((rootState: RootState) => rootState.inspection.mileage)
-    const notes = useAppSelector((rootState: RootState) => rootState.inspection.notes)
-    const fitForService = useAppSelector((rootState: RootState) => rootState.inspection.fitForService)
-    const vehicleInfoData = { ...useAppSelector((root: RootState) => root.inspection.vehicleInfo) }
+const DmiDetail = (props: IDmiDetailProps) => {
+
+
+    const cabData = props.dmiData.cabData
+    const exteriorData = props.dmiData.exteriorData
+    const exteriorOptionalData = props.dmiData.exteriorOptionalData
+    const psgData = props.dmiData.psgData
+    const dddData = props.dmiData.dddData
+    const mileage = props.dmiData.mileage
+    const notes = props.dmiData.notes
+    const fitForService = props.dmiData.fitForService
+    const vehicleInfoData = props.dmiData.vehicleInfo
 
     const showCrossCheck = (value: boolean) => {
         return value ?
@@ -107,32 +108,48 @@ const Review = () => {
             )
         },
     ];
+    const vehicleColumns = [
+        {
+            title: 'Vehicle ID',
+            dataIndex: 'vehicle_id',
+            key: 'vehicle_id',
+        },
+        {
+            title: 'Technician Id (1)',
+            dataIndex: 'technician_id_1',
+            key: 'technician_id_1',
+        },
+        {
+            title: 'Technician Id (2)',
+            dataIndex: 'technician_id_2',
+            key: 'technician_id_2',
+        },
+        {
+            title: 'Work Order',
+            dataIndex: 'work_order_number',
+            key: 'work_order_number',
+        },
+    ];
 
-    const gotoEdit = () => {
-        navigate("/")
-    }
 
-    const handleSubmit = () => {
-        const data = {
-            cabData,
-            exteriorData,
-            exteriorOptionalData,
-            psgData,
-            dddData,
-            mileage,
-            notes,
-            fitForService,
-            vehicleInfo: vehicleInfoData,
-            dateTime: new Date().toString()
-        }
-        dispatch(submitForm(data))
-    }
 
 
     return (
-        <section>
+        <Modal width="auto" open={props.isOpen} footer={null} style={{ top: 10 }} onCancel={props.handleClose}>
             <div className="w-11/12 sm:w-10/12 m-auto my-10">
-                <VehicleInfoView />
+                <>
+                    <section className="m-3 hidden sm:block">
+                        <Table dataSource={[vehicleInfoData]} columns={vehicleColumns} pagination={false} rowKey='id' />
+                    </section>
+                    <section className="sm:hidden">
+                        {vehicleColumns.map(col => (
+                            <div className="flex items-centre justify-start w-full p-2" key={col.dataIndex}>
+                                <div className="text-sm font-bold w-6/12 text-left">{col.title}</div>:
+                                <div className="text-sm ml-5"> {vehicleInfoData[col.key as keyof typeof vehicleInfoData] || '-'}</div>
+                            </div>
+                        ))}
+                    </section>
+                </>
             </div>
 
 
@@ -180,14 +197,13 @@ const Review = () => {
                 <div className="m-2 text-left sm:w-10/12">{showCrossCheck(fitForService)}</div>
             </div>
 
-            <div className="py-5 bg-[#f7f7f7] w-full z-10">
+            {/* <div className="py-5 bg-[#f7f7f7] w-full z-10">
                 <Button type="default" size="large" className="px-3 sm:px-20 mx-3" onClick={gotoEdit}>Edit</Button>
-                <Button type="primary" size="large" className="px-3 sm:px-20 mx-3" onClick={handleSubmit}>Submit</Button>
-            </div>
+            </div> */}
 
-        </section >
+        </Modal >
 
     )
 }
 
-export default Review
+export default DmiDetail
