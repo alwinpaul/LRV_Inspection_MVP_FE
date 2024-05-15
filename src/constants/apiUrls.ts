@@ -1,4 +1,4 @@
-const domain = 'http://lrv-be.eba-wpukgu5n.us-east-2.elasticbeanstalk.com'
+const domain = 'https://api.benchfix.com'
 
 export const getLoginUrl = () => {
     return `${domain}/auth/login`
