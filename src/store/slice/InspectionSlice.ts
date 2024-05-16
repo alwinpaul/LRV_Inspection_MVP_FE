@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { ICabFormItem, IDDDFormItem, IDmiListing, IExteriorFormItem, IPsgCompartmentFormItem, IVehicleInfo } from '../../types/inspectionTypes'
 import { getDmiListing } from '../../thunks/dmiListing.thunk'
+import { submitForm } from '../../thunks/submitForm.thunk'
 
 interface InspectionState {
     vehicleInfo: IVehicleInfo,
@@ -15,7 +16,8 @@ interface InspectionState {
     notes: string,
     fitForService: boolean,
     dmiListing: Array<IDmiListing> | null,
-    isDmiLoading: boolean
+    isDmiLoading: boolean,
+    showSavingLoader: boolean
 }
 
 const initialState: InspectionState = {
@@ -27,6 +29,7 @@ const initialState: InspectionState = {
     },
     dmiListing: null,
     isDmiLoading: false,
+    showSavingLoader: false,
     cabFormData: [
         {
             id: 1,
@@ -355,6 +358,16 @@ export const InspectionSlice = createSlice({
         });
         builder.addCase(getDmiListing.rejected, (state) => {
             state.isDmiLoading = false
+        });
+        builder.addCase(submitForm.pending, (state) => {
+            state.showSavingLoader = true
+        });
+        builder.addCase(submitForm.fulfilled, (state, { payload }) => {
+            state.dmiListing = [...state.dmiListing || [], payload]
+            state.showSavingLoader = false
+        });
+        builder.addCase(submitForm.rejected, (state) => {
+            state.showSavingLoader = false
         });
     }
 })

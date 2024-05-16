@@ -1,10 +1,11 @@
 import { Button, Table } from "antd";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { RootState } from "../../store/store";
-import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons'
+import { CheckCircleOutlined, CloseCircleOutlined, Loading3QuartersOutlined } from '@ant-design/icons'
 import { useNavigate } from "react-router";
 import VehicleInfoView from "../VehicleInfo/VehicleInfoView";
 import { submitForm } from "../../thunks/submitForm.thunk";
+import { useState } from "react";
 
 
 const Review = () => {
@@ -21,6 +22,9 @@ const Review = () => {
     const notes = useAppSelector((rootState: RootState) => rootState.inspection.notes)
     const fitForService = useAppSelector((rootState: RootState) => rootState.inspection.fitForService)
     const vehicleInfoData = { ...useAppSelector((root: RootState) => root.inspection.vehicleInfo) }
+    const showSaveLoader = useAppSelector((root: RootState) => root.inspection.showSavingLoader)
+
+    const [saveError, setSaveError] = useState('')
 
     const showCrossCheck = (value: boolean) => {
         return value ?
@@ -112,7 +116,7 @@ const Review = () => {
         navigate("/")
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const data = {
             cabData,
             exteriorData,
@@ -125,7 +129,18 @@ const Review = () => {
             vehicleInfo: vehicleInfoData,
             dateTime: new Date().toString()
         }
-        dispatch(submitForm(data))
+        const respAction = await dispatch(submitForm(data))
+        if (submitForm.rejected.match(respAction)) {
+            if (respAction.error.code === "501") {
+                setSaveError("Session Expired. Login and try again.")
+            } else {
+                setSaveError("Error saving Data...Please try again later.")
+            }
+            setSaveError("Error saving Data...Please try again later.")
+        } else if (submitForm.fulfilled.match(respAction)) {
+            setSaveError('')
+            navigate("/dmi")
+        }
     }
 
 
@@ -180,10 +195,32 @@ const Review = () => {
                 <div className="m-2 text-left sm:w-10/12">{showCrossCheck(fitForService)}</div>
             </div>
 
+            {saveError && (
+                <div className="text-xs text-red-500 text-centre w-full">{saveError}</div>
+            )}
+
             <div className="py-5 bg-[#f7f7f7] w-full z-10">
-                <Button type="default" size="large" className="px-3 sm:px-20 mx-3" onClick={gotoEdit}>Edit</Button>
-                <Button type="primary" size="large" className="px-3 sm:px-20 mx-3" onClick={handleSubmit}>Submit</Button>
+                <Button
+                    type="default"
+                    size="large"
+                    className="px-3 sm:px-20 mx-3"
+                    onClick={gotoEdit}
+                    disabled={showSaveLoader}
+                >
+                    Edit
+                </Button>
+                <Button
+                    type="primary"
+                    size="large"
+                    className="px-3 sm:px-20 mx-3"
+                    onClick={handleSubmit}
+                    disabled={showSaveLoader}
+                >
+                    {showSaveLoader ? <Loading3QuartersOutlined /> : "Submit"}
+                </Button>
             </div>
+
+
 
         </section >
 

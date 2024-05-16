@@ -75,7 +75,12 @@ const DmiListing = () => {
                                         </div>
                                         <div className="flex items-center my-1 justify-end">
                                             <Button type="link" onClick={() => showDetail(item)}><EyeOutlined /></Button>
-                                            <Button type="link"><CloudDownloadOutlined /></Button>
+                                            {item.pdf && (
+                                                <a href={item.pdf} target="_blank">
+                                                    <CloudDownloadOutlined />
+                                                </a>
+                                            )}
+
                                         </div>
                                     </div>
 
