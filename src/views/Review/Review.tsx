@@ -1,7 +1,7 @@
 import { Button, Table } from "antd";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { RootState } from "../../store/store";
-import { CheckCircleOutlined, CloseCircleOutlined, Loading3QuartersOutlined } from '@ant-design/icons'
+import { CheckCircleOutlined, CloseCircleOutlined, Loading3QuartersOutlined, MinusOutlined } from '@ant-design/icons'
 import { useNavigate } from "react-router";
 import VehicleInfoView from "../VehicleInfo/VehicleInfoView";
 import { submitForm } from "../../thunks/submitForm.thunk";
@@ -30,6 +30,12 @@ const Review = () => {
         return value ?
             <CheckCircleOutlined className="text-green-700" /> :
             <CloseCircleOutlined className="text-red-500" />
+    }
+
+    const showCheck = (value: boolean) => {
+        return value ?
+            <CheckCircleOutlined className="text-green-700" /> :
+            <MinusOutlined className="text-slate-500" />
     }
 
     const cabColumns = [
@@ -174,7 +180,7 @@ const Review = () => {
                 {exteriorOptionalData.map(opData => (
                     <div className="flex items-center sm:block border border-slate-300 sm:w-3/12 h-22 sm:p-2">
                         < div className="sm:h-10 font-bold text-sm m-2 w-9/12 sm:w-full text-left sm:text-center p-2" > {opData.label}</div>
-                        <div className="m-2 w-3/12 sm:w-full">{showCrossCheck(opData.value)}</div>
+                        <div className="m-2 w-3/12 sm:w-full">{showCheck(opData.value)}</div>
                     </div>
                 ))
                 }

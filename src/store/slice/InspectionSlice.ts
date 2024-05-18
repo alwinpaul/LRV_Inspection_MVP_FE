@@ -45,7 +45,7 @@ const initialState: InspectionState = {
         },
         {
             id: 3,
-            label: "Broom, Switch barone Cab, Fire extinguisher, Emergency Hammer",
+            label: "Broom, Switch bar (one Cab), Fire extinguisher, Emergency Hammer",
             cab_a_value: false,
             cab_b_value: false
         },
@@ -227,12 +227,12 @@ const initialState: InspectionState = {
         },
         {
             id: 4,
-            label: "Windows and Doors",
+            label: "Windows, Doors and Bellows",
             value: false,
         },
         {
             id: 5,
-            label: "Bellows",
+            label: "Inspect Calipers are mechanically applied",
             value: false,
         },
         {

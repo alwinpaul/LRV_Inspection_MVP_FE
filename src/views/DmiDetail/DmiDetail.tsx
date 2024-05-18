@@ -1,5 +1,5 @@
 import { Table, Modal } from "antd";
-import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons'
+import { CheckCircleOutlined, CloseCircleOutlined, MinusOutlined } from '@ant-design/icons'
 import { IDmiListing } from "../../types/inspectionTypes";
 
 
@@ -27,6 +27,12 @@ const DmiDetail = (props: IDmiDetailProps) => {
         return value ?
             <CheckCircleOutlined className="text-green-700" /> :
             <CloseCircleOutlined className="text-red-500" />
+    }
+
+    const showCheck = (value: boolean) => {
+        return value ?
+            <CheckCircleOutlined className="text-green-700" /> :
+            <MinusOutlined className="text-slate-500" />
     }
 
     const cabColumns = [
@@ -176,7 +182,7 @@ const DmiDetail = (props: IDmiDetailProps) => {
                 {exteriorOptionalData.map(opData => (
                     <div className="flex items-center sm:block border border-slate-300 sm:w-3/12 h-22 sm:p-2">
                         < div className="sm:h-10 font-bold text-sm m-2 w-9/12 sm:w-full text-left sm:text-center p-2" > {opData.label}</div>
-                        <div className="m-2 w-3/12 sm:w-full">{showCrossCheck(opData.value)}</div>
+                        <div className="m-2 w-3/12 sm:w-full">{showCheck(opData.value)}</div>
                     </div>
                 ))
                 }

@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom";
 import InspectionForm from "../views/InspectionForm/InspectionForm";
 import Login from "../views/Login/Login";
 import Review from "../views/Review/Review";
@@ -29,6 +29,10 @@ const router = createBrowserRouter([
         path: "/login",
         element: <Login />,
     },
+    {
+        path: "*",
+        element: <Navigate to="/dmi" replace />
+    }
 
 ])
 
