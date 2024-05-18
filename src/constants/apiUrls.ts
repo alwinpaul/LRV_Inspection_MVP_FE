@@ -1,4 +1,4 @@
-const domain = 'http://localhost:3000'
+const domain = 'https://api.keolis.com'
 
 export const getLoginUrl = () => {
     return `${domain}/auth/login`
