@@ -2,7 +2,7 @@ import { Alert, Button, Input, Radio, RadioChangeEvent, Space } from "antd"
 import TextArea from "antd/es/input/TextArea"
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { ChangeEvent, useState } from "react";
-import { resetForms, updateFitForService, updateMileage, updateNotes } from "../../store/slice/InspectionSlice";
+import { resetForms, updateFitForService, updateInitials, updateMileage, updateNotes } from "../../store/slice/InspectionSlice";
 import { RootState } from "../../store/store";
 import { useNavigate } from "react-router-dom";
 
@@ -23,6 +23,7 @@ const NotesForm = () => {
 
     const mileage = useAppSelector((rootState: RootState) => rootState.inspection.mileage)
     const notes = useAppSelector((rootState: RootState) => rootState.inspection.notes)
+    const initials = useAppSelector((rootState: RootState) => rootState.inspection.initials)
     const fitForService = useAppSelector((rootState: RootState) => rootState.inspection.fitForService)
 
     const handleMileageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -34,6 +35,12 @@ const NotesForm = () => {
     const handleNotesChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         dispatch(
             updateNotes(e.target.value)
+        )
+    }
+
+    const handleInitialsChange = (e: ChangeEvent<HTMLInputElement>) => {
+        dispatch(
+            updateInitials(e.target.value)
         )
     }
 
@@ -79,6 +86,11 @@ const NotesForm = () => {
                             onChange={handleFitForServiceChange}
                         />
                     </div>
+                </div>
+
+                <div className="mt-8 text-left">
+                    <div className="text-md font-bold">Technician Initials :</div>
+                    <Input type="text" onChange={handleInitialsChange} value={initials} maxLength={5} />
                 </div>
             </div>
 

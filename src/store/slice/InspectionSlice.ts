@@ -17,7 +17,8 @@ interface InspectionState {
     fitForService: boolean,
     dmiListing: Array<IDmiListing> | null,
     isDmiLoading: boolean,
-    showSavingLoader: boolean
+    showSavingLoader: boolean,
+    initials: string
 }
 
 const initialState: InspectionState = {
@@ -30,6 +31,7 @@ const initialState: InspectionState = {
     dmiListing: null,
     isDmiLoading: false,
     showSavingLoader: false,
+    initials: "",
     cabFormData: [
         {
             id: 1,
@@ -328,6 +330,9 @@ export const InspectionSlice = createSlice({
         updateNotes: (state, action: PayloadAction<string>) => {
             state.notes = action.payload
         },
+        updateInitials: (state, action: PayloadAction<string>) => {
+            state.initials = action.payload
+        },
         updateFitForService: (state, action: PayloadAction<boolean>) => {
             state.fitForService = action.payload
         },
@@ -381,6 +386,7 @@ export const {
     updatePsgCompartmentData,
     updateMileage,
     updateNotes,
+    updateInitials,
     updateFitForService,
     resetForms,
     selectAllFormData

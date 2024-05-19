@@ -20,6 +20,7 @@ const Review = () => {
     const dddData = useAppSelector((root: RootState) => root.inspection.dddFormData)
     const mileage = useAppSelector((rootState: RootState) => rootState.inspection.mileage)
     const notes = useAppSelector((rootState: RootState) => rootState.inspection.notes)
+    const initials = useAppSelector((rootState: RootState) => rootState.inspection.initials)
     const fitForService = useAppSelector((rootState: RootState) => rootState.inspection.fitForService)
     const vehicleInfoData = { ...useAppSelector((root: RootState) => root.inspection.vehicleInfo) }
     const showSaveLoader = useAppSelector((root: RootState) => root.inspection.showSavingLoader)
@@ -131,6 +132,7 @@ const Review = () => {
             dddData,
             mileage,
             notes,
+            initials,
             fitForService,
             vehicleInfo: vehicleInfoData,
             dateTime: new Date().toString()
@@ -191,6 +193,7 @@ const Review = () => {
                 <div className="m-2 text-left w-full sm:w-10/12">{notes}</div>
             </div>
 
+
             <div className="flex items-center justify-start w-full sm:w-10/12 m-auto my-5">
                 <div className="font-bold text-sm m-2 w-2/12 text-left">Mileage:</div>
                 <div className="m-2 text-left w-10/12">{mileage}</div>
@@ -199,6 +202,11 @@ const Review = () => {
             <div className="flex items-center justify-start w-full sm:w-10/12 m-auto my-5">
                 <div className="font-bold text-sm m-2 sm:w-2/12 text-left">Fit for service:</div>
                 <div className="m-2 text-left sm:w-10/12">{showCrossCheck(fitForService)}</div>
+            </div>
+
+            <div className="flex items-center justify-start w-full sm:w-10/12 m-auto my-5">
+                <div className="font-bold text-sm m-2 w-2/12 text-left">Technician Initials:</div>
+                <div className="m-2 text-left w-10/12">{initials}</div>
             </div>
 
             {saveError && (

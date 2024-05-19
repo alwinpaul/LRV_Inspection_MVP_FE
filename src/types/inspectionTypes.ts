@@ -43,5 +43,6 @@ export interface IDmiListing {
     fitForService: boolean
     dateTime: string
     pdf?: string
+    initials: string
     _id: string
 }
