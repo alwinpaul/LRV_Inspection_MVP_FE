@@ -20,6 +20,7 @@ const NotesForm = () => {
     const navigate = useNavigate();
 
     const [showResetAlert, setShowResetAlert] = useState(false)
+    const [showInitialsError, setShowInitialsError] = useState(false)
 
     const mileage = useAppSelector((rootState: RootState) => rootState.inspection.mileage)
     const notes = useAppSelector((rootState: RootState) => rootState.inspection.notes)
@@ -39,6 +40,7 @@ const NotesForm = () => {
     }
 
     const handleInitialsChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setShowInitialsError(false)
         dispatch(
             updateInitials(e.target.value)
         )
@@ -55,6 +57,10 @@ const NotesForm = () => {
     }
 
     const gotoReview = () => {
+        if (!initials) {
+            setShowInitialsError(true)
+            return
+        }
         navigate("/dmi/review")
     }
 
@@ -90,7 +96,10 @@ const NotesForm = () => {
 
                 <div className="mt-8 text-left">
                     <div className="text-md font-bold">Technician Initials :</div>
-                    <Input type="text" onChange={handleInitialsChange} value={initials} maxLength={5} />
+                    <Input type="text" onChange={handleInitialsChange} value={initials} maxLength={5} required />
+                    {showInitialsError && (
+                        <div className="text-xs text-red-500 text-right p-1">Initials Required!</div>
+                    )}
                 </div>
             </div>
 

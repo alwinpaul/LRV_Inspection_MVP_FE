@@ -121,7 +121,7 @@ const Review = () => {
     ];
 
     const gotoEdit = () => {
-        navigate("/")
+        navigate("/dmi/inspect")
     }
 
     const handleSubmit = async () => {
