@@ -266,7 +266,7 @@ const initialState: InspectionState = {
     exterioroptionalData: [
         {
             id: 9001,
-            label: "Maximum WO Completed",
+            label: "Maximo WO Completed",
             value: false,
         },
         {
