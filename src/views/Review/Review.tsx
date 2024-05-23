@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import VehicleInfoView from "../VehicleInfo/VehicleInfoView";
 import { submitForm } from "../../thunks/submitForm.thunk";
 import { useState } from "react";
+import { resetForms } from "../../store/slice/InspectionSlice";
 
 
 const Review = () => {
@@ -147,6 +148,7 @@ const Review = () => {
             setSaveError("Error saving Data...Please try again later.")
         } else if (submitForm.fulfilled.match(respAction)) {
             setSaveError('')
+            dispatch(resetForms())
             navigate("/dmi")
         }
     }
