@@ -1,5 +1,5 @@
-// const domain = 'https://api.benchfix.com'
-const domain = 'http://localhost:3000'
+const domain = 'https://api.benchfix.com'
+// const domain = 'http://localhost:3000'
 export const getLoginUrl = () => {
     return `${domain}/auth/login`
 }
