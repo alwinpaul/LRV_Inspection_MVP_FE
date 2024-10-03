@@ -16,7 +16,8 @@ export interface IDDDFormItem {
     id: number,
     label: string,
     cab_a_value: boolean,
-    cab_b_value: boolean
+    cab_b_value: boolean,
+    hide_b_value?: boolean
 }
 
 export interface IExteriorFormItem {

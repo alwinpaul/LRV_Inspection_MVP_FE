@@ -7,6 +7,7 @@ import VehicleInfoView from "../VehicleInfo/VehicleInfoView";
 import { submitForm } from "../../thunks/submitForm.thunk";
 import { useState } from "react";
 import { resetForms } from "../../store/slice/InspectionSlice";
+import { IDDDFormItem } from "../../types/inspectionTypes";
 
 
 const Review = () => {
@@ -82,8 +83,8 @@ const Review = () => {
             title: 'Cab B',
             dataIndex: 'cab_b_value',
             key: 'cab_b_value',
-            render: (value: boolean) => (
-                showCrossCheck(value)
+            render: (value: boolean, record: IDDDFormItem) => (
+                record.hide_b_value ? "" : showCrossCheck(value)
             )
         },
     ];

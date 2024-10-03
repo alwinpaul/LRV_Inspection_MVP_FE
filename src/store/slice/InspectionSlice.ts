@@ -111,12 +111,6 @@ const initialState: InspectionState = {
             cab_a_value: false,
             cab_b_value: false
         },
-        {
-            id: 14,
-            label: "Door open Pink Decal Present",
-            cab_a_value: false,
-            cab_b_value: false
-        }
     ],
     dddFormData: [
         {
@@ -142,6 +136,13 @@ const initialState: InspectionState = {
             label: "Perform Departure Tests (Primary and secondary vigilance, Maximum speed test and roll back test)",
             cab_a_value: false,
             cab_b_value: false
+        },
+        {
+            id: 5,
+            label: "Perform Load Levelling Self-test (Every 48 hours)",
+            cab_a_value: false,
+            cab_b_value: false,
+            hide_b_value: true
         },
     ],
     psgCompartmentData: [

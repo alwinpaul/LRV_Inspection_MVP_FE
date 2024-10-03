@@ -1,6 +1,6 @@
 import { Table, Modal } from "antd";
 import { CheckCircleOutlined, CloseCircleOutlined, MinusOutlined } from '@ant-design/icons'
-import { IDmiListing } from "../../types/inspectionTypes";
+import { IDDDFormItem, IDmiListing } from "../../types/inspectionTypes";
 
 
 interface IDmiDetailProps {
@@ -77,8 +77,8 @@ const DmiDetail = (props: IDmiDetailProps) => {
             title: 'Cab B',
             dataIndex: 'cab_b_value',
             key: 'cab_b_value',
-            render: (value: boolean) => (
-                showCrossCheck(value)
+            render: (value: boolean, record: IDDDFormItem) => (
+                record.hide_b_value ? "" : showCrossCheck(value)
             )
         },
     ];

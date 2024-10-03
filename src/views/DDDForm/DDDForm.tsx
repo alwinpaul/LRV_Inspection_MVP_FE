@@ -32,7 +32,7 @@ const DDDForm = () => {
             dataIndex: 'cab_b_value',
             key: 'cab_b_value',
             render: (value: boolean, record: IDDDFormItem) => (
-                <Checkbox checked={value} onChange={() => updateCabValue(record, 'cab_b_value')} />
+                !record.hide_b_value && <Checkbox checked={value} onChange={() => updateCabValue(record, 'cab_b_value')} />
             )
         },
     ];
